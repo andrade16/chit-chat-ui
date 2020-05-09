@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, FormGroup, FormControl, FormLabel, Form, FormText} from 'react-bootstrap';
+import {Button, FormGroup, FormControl, FormLabel, FormText} from 'react-bootstrap';
 import ChatWindow from './ChatWindow';
 import '../styles/App.css';
 

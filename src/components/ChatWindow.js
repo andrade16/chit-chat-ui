@@ -12,23 +12,35 @@ const testMessages = [
 class ChatWindow extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            messages: [],
-        };
+        this.state = {messages: []};
 
+        this.handleChatSend = this.handleChatSend.bind(this);
     }
 
+    handleChatSend(message) {
+        const {username} = this.props;
+
+        const messageObject = {
+            username: username,
+            message: message
+        };
+
+        console.log('MESSAGE_OBJECT: ', messageObject);
+    }
 
     render() {
-
         return (
             <div className="chat-window">
                 <h3 id="welcome-header">Welcome to Chit Chat!</h3>
                 <Messages messages={testMessages}/>
-                <ChatInput/>
+                <ChatInput onChatSend={this.handleChatSend}/>
             </div>
         );
     }
 }
+
+ChatWindow.defaultProps = {
+    username: 'Eno'
+};
 
 export default ChatWindow;
