@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import '../styles/Messages.css';
 
 function Message(props) {
     const fromCurrentUser = props.fromCurrentUser ? 'from-current-user' : '';

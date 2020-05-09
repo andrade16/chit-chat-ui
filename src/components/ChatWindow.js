@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import Messages from './Messages';
+import ChatInput from './ChatInput';
+import '../styles/ChatWindow.css';
 
 const testMessages = [
-    {fromMe: true, user: 'William', message: 'text'},
-    {fromMe: false, user: 'Billy', message: 'text one'},
-    {fromMe: false, user: 'Dylan', message: 'text two'}
+    {fromMe: true, username: 'William', message: 'text'},
+    {fromMe: false, username: 'Billy', message: 'text one'},
+    {fromMe: false, username: 'Dylan', message: 'text two'}
 ];
 
 class ChatWindow extends Component {
@@ -18,13 +20,12 @@ class ChatWindow extends Component {
 
 
     render() {
-        const {text} = this.state
-        const {username} = this.props;
 
         return (
             <div className="chat-window">
-                <h3>Welcome to Chit Chat!</h3>
+                <h3 id="welcome-header">Welcome to Chit Chat!</h3>
                 <Messages messages={testMessages}/>
+                <ChatInput/>
             </div>
         );
     }
