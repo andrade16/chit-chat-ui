@@ -19,7 +19,7 @@ class ChatInput extends Component {
 
         // send data to parent component
         this.props.onChatSend(chatText);
-        
+
         // clear the chat text
         this.setState({chatText: ''});
 
@@ -31,6 +31,7 @@ class ChatInput extends Component {
 
     render() {
         const {chatText} = this.state;
+        const sendDisabled = chatText.length > 0;
 
         return (
             <div className="chat-input">
@@ -44,8 +45,10 @@ class ChatInput extends Component {
                     />
                     <InputGroup.Append>
                         <Button
-                            variant="outline-secondary"
                             onClick={this.onChatSubmit}
+                            disabled={!sendDisabled}
+                            variant="primary"
+                            type="submit"
                         >
                             Send
                         </Button>

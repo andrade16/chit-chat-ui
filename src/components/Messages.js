@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {OverlayTrigger, Popover, PopoverContent, PopoverTitle} from 'react-bootstrap';
 import '../styles/Messages.css';
 
 function Message(props) {
@@ -18,7 +19,7 @@ function Message(props) {
 class Messages extends Component {
     componentDidUpdate() {
         const messageListDiv = document.getElementById('message-list');
-        messageListDiv.scollTop =messageListDiv.scrollHeight;
+        messageListDiv.scollTop = messageListDiv.scrollHeight;
     }
 
     render() {
@@ -29,7 +30,7 @@ class Messages extends Component {
                     key={index}
                     username={message.username}
                     message={message.message}
-                    fromCurrentUser={message.fromMe}
+                    fromCurrentUser={message.fromCurrentUser}
                 />
             );
         });

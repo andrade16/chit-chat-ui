@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, FormGroup, FormControl, FormLabel, FormText} from 'react-bootstrap';
+import {Button, FormGroup, FormControl, FormLabel, FormText, Jumbotron} from 'react-bootstrap';
 import ChatWindow from './ChatWindow';
 import '../styles/App.css';
 
@@ -23,7 +23,6 @@ class App extends Component {
             submitted: true,
             username: this.state.username
         });
-        console.log('EVENT: ', event);
     }
 
 
@@ -35,31 +34,33 @@ class App extends Component {
         }
 
         return (
-
-            <div className="login">
-                <form onSubmit={this.handleSubmit}>
-                    <FormGroup controlId="username" bssize="large">
-                        <FormLabel>Username</FormLabel>
-                        <FormControl
-                            autoFocus
-                            type="text"
-                            placeholder="Enter a username"
-                            value={username}
-                            onChange={this.handleUsername}
-                        />
-                        <FormText className="text-muted">
-                            This is the name that will be displayed as you chat
-                        </FormText>
-                    </FormGroup>
-                    <Button
-                        bssize="large"
-                        disabled={!submitDisabled}
-                        type="submit"
-                    >
-                        Login
-                    </Button>
-                </form>
-            </div>
+            <Jumbotron fluid>
+                <div className="login">
+                    <form onSubmit={this.handleSubmit}>
+                        <FormGroup controlId="username" bssize="large">
+                            <FormLabel>Username</FormLabel>
+                            <FormControl
+                                autoFocus
+                                type="text"
+                                placeholder="Enter a username"
+                                value={username}
+                                onChange={this.handleUsername}
+                            />
+                            <FormText className="text-muted">
+                                This is the name that will be displayed as you chat
+                            </FormText>
+                        </FormGroup>
+                        <Button
+                            bssize="large"
+                            disabled={!submitDisabled}
+                            type="submit"
+                            variant="success"
+                        >
+                            Login
+                        </Button>
+                    </form>
+                </div>
+            </Jumbotron>
         );
     }
 }

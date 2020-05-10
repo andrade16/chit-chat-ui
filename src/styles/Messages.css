@@ -16,7 +16,8 @@
 }
 
 .message.from-current-user .message-body {
-    background-color: #af9570;
+    background-color: #007bff;
+    color: #eeeeee;
 }
 
 .message {
