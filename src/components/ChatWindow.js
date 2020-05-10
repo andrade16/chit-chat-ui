@@ -17,7 +17,9 @@ class ChatWindow extends Component {
 
         // Connect to server by passing in address it's running on
         this.socket = io(`${config.dev.HOST}:${config.dev.PORT}`, {query: `username=${props.username}`}).connect();
+    }
 
+    componentDidMount() {
         // listens for messages from server
         this.socket.on('server:message', message => {
             this.addMessage(message);
@@ -41,8 +43,9 @@ class ChatWindow extends Component {
     addMessage(message) {
 
         // add messages to current state, avoid updating state directly
-        let messages = this.state.messages;
+        let messages = [...this.state.messages];
         messages.push(message);
+
         this.setState({messages: messages})
     }
 

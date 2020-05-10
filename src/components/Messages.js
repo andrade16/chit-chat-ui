@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {OverlayTrigger, Popover, PopoverContent, PopoverTitle} from 'react-bootstrap';
 import '../styles/Messages.css';
+
 
 function Message(props) {
     const fromCurrentUser = props.fromCurrentUser ? 'from-current-user' : '';
@@ -17,9 +17,9 @@ function Message(props) {
 }
 
 class Messages extends Component {
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         const messageListDiv = document.getElementById('message-list');
-        messageListDiv.scollTop = messageListDiv.scrollHeight;
+        messageListDiv.scrollTop = messageListDiv.scrollHeight;
     }
 
     render() {
