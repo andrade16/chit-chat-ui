@@ -35,25 +35,29 @@ class ChatInput extends Component {
 
         return (
             <div className="chat-input">
-                <InputGroup>
-                    <FormControl
-                        placeholder="Write a message..."
-                        aria-label="Chat input"
-                        aria-describedby="basic-addon1"
-                        value={chatText}
-                        onChange={this.onChatChange}
-                    />
-                    <InputGroup.Append>
-                        <Button
-                            onClick={this.onChatSubmit}
-                            disabled={!sendDisabled}
-                            variant="primary"
-                            type="submit"
-                        >
-                            Send
-                        </Button>
-                    </InputGroup.Append>
-                </InputGroup>
+                <form onSubmit={this.onChatSubmit}>
+                    <InputGroup>
+                        <FormControl
+                            autoFocus
+                            placeholder="Write a message..."
+                            aria-label="Chat input"
+                            aria-describedby="basic-addon1"
+                            value={chatText}
+                            onChange={this.onChatChange}
+                        />
+                        <InputGroup.Append>
+                            <Button
+                                onClick={this.onChatSubmit}
+                                disabled={!sendDisabled}
+                                variant="primary"
+                                type="submit"
+                            >
+                                Send
+                            </Button>
+                        </InputGroup.Append>
+                    </InputGroup>
+
+                </form>
             </div>
         );
     }

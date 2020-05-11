@@ -28,10 +28,13 @@ class ChatWindow extends Component {
 
     handleChatSend(message) {
         const {username} = this.props;
+        const timestamp = new Date().toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'});
+
 
         const messagePayload = {
             username: username,
             message: message,
+            timestamp: timestamp
         };
 
         this.socket.emit('client:message', messagePayload);

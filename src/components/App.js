@@ -1,7 +1,24 @@
 import React, {Component} from 'react';
 import {Button, FormGroup, FormControl, FormLabel, FormText, Jumbotron} from 'react-bootstrap';
 import ChatWindow from './ChatWindow';
+import {BsChatSquareDotsFill} from 'react-icons/all';
 import '../styles/App.css';
+
+const headerStyles = {
+    display: 'flex',
+    flexDirection: 'column',
+    // justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 30
+};
+
+const jumbotronStyles ={
+    padding: '20px 0 65px 0'
+};
+
+const subheaderStyles = {
+    fontSize: 15
+}
 
 class App extends Component {
     constructor(props) {
@@ -34,7 +51,15 @@ class App extends Component {
         }
 
         return (
-            <Jumbotron fluid>
+            <div>
+                <Jumbotron fluid style={jumbotronStyles}>
+                    <div style={headerStyles}>
+                        <BsChatSquareDotsFill size={120}/>
+                        <label>Welcome to Chit-Chat!</label>
+                        <h3 style={subheaderStyles}>A simple chat application to stay in contact with your friends</h3>
+                    </div>
+                </Jumbotron>
+
                 <div className="login">
                     <form onSubmit={this.handleSubmit}>
                         <FormGroup controlId="username" bssize="large">
@@ -56,11 +81,11 @@ class App extends Component {
                             type="submit"
                             variant="success"
                         >
-                            Login
+                            Get started
                         </Button>
                     </form>
                 </div>
-            </Jumbotron>
+            </div>
         );
     }
 }

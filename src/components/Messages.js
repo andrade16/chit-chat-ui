@@ -3,17 +3,46 @@ import '../styles/Messages.css';
 
 
 function Message(props) {
-    const fromCurrentUser = props.fromCurrentUser ? 'from-current-user' : '';
-    return (
-        <div className={`message ${fromCurrentUser}`}>
-            <div className='username'>
-                {props.username}
+    // const fromCurrentUser = props.fromCurrentUser ? 'from-current-user' : 'from-other-user';
+    // const usernameDisplay = props.fromCurrentUser ? '' : props.username;
+
+    // return (
+    //     <div className={`message ${fromCurrentUser}`}>
+    //
+    //         <div className='username'>
+    //             {props.username}
+    //         </div>
+    //         <div className="message-body">
+    //             {props.message}
+    //         </div>
+    //
+    //         {/*<div className="timestamp">*/}
+    //         {/*    {props.timestamp}*/}
+    //         {/*</div>*/}
+    //
+    //     </div>
+    // );
+
+    let message;
+    if (props.fromCurrentUser) {
+        message = (
+            <div className="message from-current-user">
+                <div className="message-body">{props.message}</div>
+                <div className="timestamp-current-user">{props.timestamp}</div>
             </div>
-            <div className="message-body">
-                {props.message}
+        );
+    } else {
+        message = (
+            <div className="message from-other-user">
+                <div>
+                    <div className='username'>{props.username}</div>
+                    <div className="message-body">{props.message}</div>
+                </div>
+                <div className="timestamp-other-user">{props.timestamp}</div>
             </div>
-        </div>
-    );
+        )
+    }
+    return message;
 }
 
 class Messages extends Component {
@@ -31,6 +60,7 @@ class Messages extends Component {
                     username={message.username}
                     message={message.message}
                     fromCurrentUser={message.fromCurrentUser}
+                    timestamp={message.timestamp}
                 />
             );
         });
