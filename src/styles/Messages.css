@@ -5,45 +5,56 @@
     padding: 20px;
 }
 
-.message.from-current-user {
-    display: flex;
-    /*justify-content: flex-end;*/
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-.message.from-other-user {
+/*shared styling for message component*/
+.message-current-user, .message-other-user {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 5px;
 }
 
-.message.from-current-user:hover .timestamp-current-user {
-    visibility: visible;
+/*shared styling for message body*/
+.message-body-current-user, .message-body-other-user {
+    display: inline-block;
+    padding: 15px;
+    background-color: #eee;
+    border: 1px;
+    border-radius: 5px;
+    word-break: break-all;
 }
 
-.message.from-other-user:hover .timestamp-other-user {
-    visibility: visible;
+/*adds color for current user message body*/
+.message-body-current-user {
+    background-color: #007bff;
+    color: #FFFFFFFF
+}
+/*shared styling for timestamp*/
+.timestamp-current-user, .timestamp-other-user {
+    min-width: 8%;
+    font-size: 10px;
+    visibility: hidden;
 }
 
-/*switches timestamp and message body position*/
+/*styling for current user timestamp for placement*/
 .timestamp-current-user {
     order: -1;
-    min-width: 8%;
-    font-size: 10px;
-    visibility: hidden;
-}
-.timestamp-other-user {
-    min-width: 8%;
-    font-size: 10px;
-    visibility: hidden;
 }
 
-.message.from-current-user .message-body {
-    background-color: #007bff;
-    color: #FFFFFFFF;
+.message-current-user:hover .timestamp-current-user {
+    visibility: visible;
+}
+
+.message-other-user:hover .timestamp-other-user {
+    visibility: visible;
+}
+
+.username-current-user, .username-other-user {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.current-user-name-container {
+    display: none;
 }
 
 .message {
@@ -53,7 +64,6 @@
 .username {
     font-size: 13px;
     font-weight: bold;
-    /*border: 2px solid black;*/
 }
 
 .message-body {
@@ -64,6 +74,5 @@
     border: 1px;
     border-radius: 5px;
     word-break: break-all;
-    /*padding-right: 50px*/
 }
 

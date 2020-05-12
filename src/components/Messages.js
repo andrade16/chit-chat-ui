@@ -1,48 +1,19 @@
 import React, {Component} from 'react';
 import '../styles/Messages.css';
 
-
 function Message(props) {
-    // const fromCurrentUser = props.fromCurrentUser ? 'from-current-user' : 'from-other-user';
-    // const usernameDisplay = props.fromCurrentUser ? '' : props.username;
-
-    // return (
-    //     <div className={`message ${fromCurrentUser}`}>
-    //
-    //         <div className='username'>
-    //             {props.username}
-    //         </div>
-    //         <div className="message-body">
-    //             {props.message}
-    //         </div>
-    //
-    //         {/*<div className="timestamp">*/}
-    //         {/*    {props.timestamp}*/}
-    //         {/*</div>*/}
-    //
-    //     </div>
-    // );
-
-    let message;
-    if (props.fromCurrentUser) {
-        message = (
-            <div className="message from-current-user">
-                <div className="message-body">{props.message}</div>
-                <div className="timestamp-current-user">{props.timestamp}</div>
-            </div>
-        );
-    } else {
-        message = (
-            <div className="message from-other-user">
-                <div>
-                    <div className='username'>{props.username}</div>
-                    <div className="message-body">{props.message}</div>
+    const fromUser = props.fromCurrentUser ? 'current-user' : 'other-user';
+    return (
+        <div className={`message-${fromUser}`}>
+            <div>
+                <div className={`${fromUser}-name-container`}>
+                    <div className={`username-${fromUser}`}>{props.username}</div>
                 </div>
-                <div className="timestamp-other-user">{props.timestamp}</div>
+                <div className={`message-body-${fromUser}`}>{props.message}</div>
             </div>
-        )
-    }
-    return message;
+            <div className={`timestamp-${fromUser}`}>{props.timestamp}</div>
+        </div>
+    );
 }
 
 class Messages extends Component {
