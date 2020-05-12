@@ -1,34 +1,27 @@
 import React, {Component} from 'react';
 import {Button, FormGroup, FormControl, FormLabel, FormText, Jumbotron} from 'react-bootstrap';
+import bsCustomFileInput from 'bs-custom-file-input'
 import ChatWindow from './ChatWindow';
 import {BsChatSquareDotsFill} from 'react-icons/all';
 import '../styles/App.css';
-
-const headerStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    // justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 30
-};
-
-const jumbotronStyles ={
-    padding: '20px 0 65px 0'
-};
-
-const subheaderStyles = {
-    fontSize: 15
-}
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
             username: '',
-            submitted: false
+            submitted: false,
+            fileData: null
         };
         this.handleUsername = this.handleUsername.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleFileData = this.handleFileData.bind(this);
+
+        this.fileInput = React.createRef(); // Uncontrolled component reference
+    }
+
+    componentDidMount() {
+        bsCustomFileInput.init();
     }
 
     handleUsername(event) {
@@ -36,27 +29,54 @@ class App extends Component {
     }
 
     handleSubmit(event) {
+        event.preventDefault();
+
+        let pictureFile = this.fileInput.current.files[0];
+
+        if (pictureFile) {
+            const reader = new FileReader();
+            new Promise((resolve, reject) => {
+                reader.onload = function (event) {
+                    resolve(event.target.result);
+                };
+                reader.readAsDataURL(pictureFile)
+                reader.onerror = reject;
+            })
+                .then(this.handleFileData)
+                .catch((err) => {
+                    console.error(err);
+                });
+        }
+
         this.setState({
             submitted: true,
             username: this.state.username
         });
     }
 
+    handleFileData(data) {
+        this.setState({
+            submitted: true,
+            username: this.state.username,
+            fileData: data
+        });
+    }
 
     render() {
-        const {username, submitted} = this.state;
+        const {username, submitted, fileData} = this.state;
         const submitDisabled = username.length > 0;
+
         if (submitted) {
-            return (<ChatWindow username={username}/>);
+            return (<ChatWindow username={username} profilePicture={fileData}/>);
         }
 
         return (
             <div>
-                <Jumbotron fluid style={jumbotronStyles}>
-                    <div style={headerStyles}>
+                <Jumbotron fluid className="login-jumbotron">
+                    <div className="login-header">
                         <BsChatSquareDotsFill size={120}/>
                         <label>Welcome to Chit-Chat!</label>
-                        <h3 style={subheaderStyles}>A simple chat application to stay in contact with your friends</h3>
+                        <h3 className="login-subheader">A simple chat application to stay connected with your friends</h3>
                     </div>
                 </Jumbotron>
 
@@ -74,6 +94,15 @@ class App extends Component {
                             <FormText className="text-muted">
                                 This is the name that will be displayed as you chat
                             </FormText>
+                            <div className="custom-file">
+                                <input
+                                    ref={this.fileInput}
+                                    id="profile-picture"
+                                    type="file"
+                                    className="custom-file-input"
+                                />
+                                <label className="custom-file-label" htmlFor="profile-picture">Add a profile picture</label>
+                            </div>
                         </FormGroup>
                         <Button
                             bssize="large"

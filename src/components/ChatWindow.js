@@ -3,8 +3,10 @@ import Messages from './Messages';
 import ChatInput from './ChatInput';
 import io from 'socket.io-client';
 import config from '../config/config';
-import '../styles/ChatWindow.css';
 import {Alert} from 'react-bootstrap';
+import Avatar from "react-avatar";
+import '../styles/ChatWindow.css';
+
 
 class ChatWindow extends Component {
     socket = {};
@@ -73,7 +75,8 @@ class ChatWindow extends Component {
 
     render() {
         const {otherUser, messages, showUserAlert} = this.state;
-        const greeting = `Welcome to Chit-Chat, ${this.props.username}!`;
+        const {username, profilePicture} = this.props;
+        const greeting = `Welcome to Chit-Chat, ${username}!`;
 
         // Need to use a forward ref to avoid findDomNode deprecation warnings
         const UserAlert = React.forwardRef((props, ref) => (
@@ -92,7 +95,16 @@ class ChatWindow extends Component {
 
         return (
             <div className="chat-window">
-                <h3 id="welcome-header">{greeting}</h3>
+                <h3 id="welcome-header">
+                    {greeting}
+                    <Avatar
+                        src={profilePicture}
+                        round={true}
+                        size={40}
+                        style={{marginLeft: 15}}
+                        name={username}
+                    />
+                </h3>
                 <UserAlert
                     ref={alertRef}
                     otherUser={otherUser}
@@ -106,7 +118,8 @@ class ChatWindow extends Component {
 }
 
 ChatWindow.defaultProps = {
-    username: 'Eno'
+    username: 'Eno',
+    profilePicture: ''
 };
 
 export default ChatWindow;

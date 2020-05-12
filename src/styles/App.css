@@ -19,5 +19,23 @@ html, body, #root {
   }
 }
 
+.login-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 30px;
+}
+
+.login-jumbotron {
+  padding: 20px 0 65px 0;
+}
+
+.login-subheader {
+  font-size: 15px;
+}
+
+.custom-file {
+  margin-top: 25px;
+}
 
 

@@ -7,6 +7,10 @@
 }
 
 #welcome-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     padding: 20px;
     margin: 0;
