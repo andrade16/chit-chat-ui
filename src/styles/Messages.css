@@ -16,12 +16,12 @@
 /*shared styling for message body*/
 .message-body-current-user, .message-body-other-user {
     display: inline-block;
-    /*padding: 15px;*/
     padding: 10px;
     background-color: #eee;
     border: 1px;
     border-radius: 5px;
     word-break: break-all;
+    font-size: 13px;
 }
 
 /*adds color for current user message body*/
@@ -51,7 +51,7 @@
 }
 
 .username-current-user, .username-other-user {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: bold;
 }
 

@@ -4,7 +4,7 @@ import ChatInput from './ChatInput';
 import io from 'socket.io-client';
 import config from '../config/config';
 import {Alert} from 'react-bootstrap';
-import Avatar from "react-avatar";
+import Avatar from 'react-avatar';
 import '../styles/ChatWindow.css';
 
 
@@ -28,26 +28,24 @@ class ChatWindow extends Component {
 
     componentDidMount() {
 
-        // listens for messages from server
-        this.socket.on('server:message', message => {
-            this.addMessage(message);
-        });
-
         // listen for user connections from server
         this.socket.on('client:connection', username => {
             this.setAlert(username, true)
         });
+
+        // listens for messages from server
+        this.socket.on('server:message', message => {
+            this.addMessage(message);
+        });
     }
 
     setAlert(username, alertTriggered) {
-        this.setState({
-            otherUser: username,
-            showUserAlert: alertTriggered
-        });
+        this.setState({otherUser: username, showUserAlert: alertTriggered});
     }
 
     closeAlert() {
         this.setState({otherUser: '', showUserAlert: false});
+        //this.setState({...this.state, showUserAlert: false});
     }
 
     addMessage(message) {
@@ -69,7 +67,7 @@ class ChatWindow extends Component {
 
         // send data to server
         this.socket.emit('client:message', messagePayload);
-        messagePayload.fromCurrentUser = true;
+        messagePayload.fromCurrentUser = true; // this property will later be used to help render messages (sender vs other user)
         this.addMessage(messagePayload);
     }
 
@@ -98,9 +96,9 @@ class ChatWindow extends Component {
                 <h3 id="welcome-header">
                     {greeting}
                     <Avatar
-                        src={profilePicture}
+                        src={profilePicture.image}
                         round={true}
-                        size={40}
+                        size={55}
                         style={{marginLeft: 15}}
                         name={username}
                     />

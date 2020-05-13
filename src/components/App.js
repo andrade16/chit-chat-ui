@@ -11,11 +11,10 @@ class App extends Component {
         this.state = {
             username: '',
             submitted: false,
-            fileData: null
+            fileData: {type: '', image: null}
         };
         this.handleUsername = this.handleUsername.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleFileData = this.handleFileData.bind(this);
 
         this.fileInput = React.createRef(); // Uncontrolled component reference
     }
@@ -29,12 +28,15 @@ class App extends Component {
     }
 
     handleSubmit(event) {
-        event.preventDefault();
+        event.preventDefault(); // prevent refreshing
 
         let pictureFile = this.fileInput.current.files[0];
 
         if (pictureFile) {
+
+            const pictureType = pictureFile.type;
             const reader = new FileReader();
+
             new Promise((resolve, reject) => {
                 reader.onload = function (event) {
                     resolve(event.target.result);
@@ -42,24 +44,23 @@ class App extends Component {
                 reader.readAsDataURL(pictureFile)
                 reader.onerror = reject;
             })
-                .then(this.handleFileData)
+                .then(data => {
+                    this.setState({
+                        submitted: true,
+                        username: this.state.username,
+                        fileData: {type: pictureType, image: data}
+                    });
+                })
                 .catch((err) => {
                     console.error(err);
                 });
+        } else {
+            this.setState({
+                submitted: true,
+                username: this.state.username
+            });
         }
 
-        this.setState({
-            submitted: true,
-            username: this.state.username
-        });
-    }
-
-    handleFileData(data) {
-        this.setState({
-            submitted: true,
-            username: this.state.username,
-            fileData: data
-        });
     }
 
     render() {
@@ -76,7 +77,8 @@ class App extends Component {
                     <div className="login-header">
                         <BsChatSquareDotsFill size={120}/>
                         <label>Welcome to Chit-Chat!</label>
-                        <h3 className="login-subheader">A simple chat application to stay connected with your friends</h3>
+                        <h3 className="login-subheader">A simple chat application to stay connected with your
+                            friends</h3>
                     </div>
                 </Jumbotron>
 
@@ -101,7 +103,8 @@ class App extends Component {
                                     type="file"
                                     className="custom-file-input"
                                 />
-                                <label className="custom-file-label" htmlFor="profile-picture">Add a profile picture</label>
+                                <label className="custom-file-label" htmlFor="profile-picture">Add a profile
+                                    picture</label>
                             </div>
                         </FormGroup>
                         <Button

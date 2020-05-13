@@ -1,15 +1,28 @@
 import React, {Component} from 'react';
+import Avatar from 'react-avatar';
 import '../styles/Messages.css';
 
 function Message(props) {
     const fromUser = props.fromCurrentUser ? 'current-user' : 'other-user';
+    const avatarStyles = {
+        marginRight: 7,
+        display: fromUser === 'current-user' ? 'none' : 'inline'
+    }
     return (
         <div className={`message-${fromUser}`}>
-            <div>
-                <div className={`${fromUser}-name-container`}>
-                    <div className={`username-${fromUser}`}>{props.username}</div>
+            <div style={{display: 'flex', alignItems: 'flex-end'}}>
+                <Avatar
+                    round={true}
+                    size={35}
+                    style={avatarStyles}
+                    name={props.username}
+                />
+                <div>
+                    <div className={`${fromUser}-name-container`}>
+                        <div className={`username-${fromUser}`}>{props.username}</div>
+                    </div>
+                    <div className={`message-body-${fromUser}`}>{props.message}</div>
                 </div>
-                <div className={`message-body-${fromUser}`}>{props.message}</div>
             </div>
             <div className={`timestamp-${fromUser}`}>{props.timestamp}</div>
         </div>
@@ -45,7 +58,8 @@ class Messages extends Component {
 }
 
 Messages.defaultProps = {
-    messages: []
+    messages: [],
+    picture: null
 };
 
 export default Messages;
