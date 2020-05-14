@@ -17,9 +17,9 @@ This is a simple UI for a chat application. To properly run this application, yo
 
 * Multiple users can enter this chat room.
 * All users have the option of uploading a profile picture that's displayed in the chat room header.
-* When a new user enters the chat room, all other existing users will receive an alert notification. 
-* Hover over messages to view their time stamps
-* User should get typing feedback when other users in the room are typing
+* When a new user enters the chat room, all other existing users will receive an alert notification. You must dismiss the notification yourself.
+* Hover over messages to view their time stamps.
+* User should get typing feedback when other users in the room are typing.
 
 ## Other Available Scripts
 
