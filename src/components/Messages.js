@@ -10,7 +10,7 @@ function Message(props) {
     }
     return (
         <div className={`message-${fromUser}`}>
-            <div style={{display: 'flex', alignItems: 'flex-end'}}>
+            <div className="message-content-container">
                 <Avatar
                     round={true}
                     size={35}

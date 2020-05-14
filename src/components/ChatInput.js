@@ -17,15 +17,18 @@ class ChatInput extends Component {
         // stops form from refreshing on chat submit
         event.preventDefault();
 
-        // send data to parent component
+        // send data to ChatWindow for sending to message to server and state
         this.props.onChatSend(chatText);
 
         // clear the chat text
         this.setState({chatText: ''});
-
     }
 
     onChatChange(event) {
+        // send data to ChatWindow for displaying typing feedback
+        this.props.onChatInput(event.target.value);
+
+        // set chat text
         this.setState({chatText: event.target.value})
     }
 

@@ -85,7 +85,7 @@ class App extends Component {
                 <div className="login">
                     <form onSubmit={this.handleSubmit}>
                         <FormGroup controlId="username" bssize="large">
-                            <FormLabel>Username</FormLabel>
+                            <FormLabel className="username-label">Username</FormLabel>
                             <FormControl
                                 autoFocus
                                 type="text"
@@ -96,15 +96,21 @@ class App extends Component {
                             <FormText className="text-muted">
                                 This is the name that will be displayed as you chat
                             </FormText>
+                            <FormLabel className="profile-label">Profile Picture</FormLabel>
                             <div className="custom-file">
                                 <input
                                     ref={this.fileInput}
                                     id="profile-picture"
                                     type="file"
                                     className="custom-file-input"
+                                    accept="image/*"
                                 />
-                                <label className="custom-file-label" htmlFor="profile-picture">Add a profile
-                                    picture</label>
+                                <label
+                                    className="custom-file-label"
+                                    htmlFor="profile-picture"
+                                >
+                                    Add a profile picture
+                                </label>
                             </div>
                         </FormGroup>
                         <Button

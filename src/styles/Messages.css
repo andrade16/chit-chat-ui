@@ -5,6 +5,11 @@
     padding: 20px;
 }
 
+.message-content-container {
+    display: flex;
+    align-items: flex-end;
+}
+
 /*shared styling for message component*/
 .message-current-user, .message-other-user {
     display: flex;

@@ -16,10 +16,12 @@ class ChatWindow extends Component {
         this.state = {
             messages: [],
             otherUser: null,
-            showUserAlert: false
+            showUserAlert: false,
+            typingFeedback: ''
         };
 
         this.handleChatSend = this.handleChatSend.bind(this);
+        this.handleChatInput = this.handleChatInput.bind(this);
         this.closeAlert = this.closeAlert.bind(this);
 
         // Connect to server by passing in address it's running on
@@ -37,6 +39,11 @@ class ChatWindow extends Component {
         this.socket.on('server:message', message => {
             this.addMessage(message);
         });
+
+        // listens for typing event from server
+        this.socket.on('server:typing', input => {
+            this.setTypingFeedback(input);
+        });
     }
 
     setAlert(username, alertTriggered) {
@@ -45,14 +52,21 @@ class ChatWindow extends Component {
 
     closeAlert() {
         this.setState({otherUser: '', showUserAlert: false});
-        //this.setState({...this.state, showUserAlert: false});
     }
 
     addMessage(message) {
         // add messages to current state, avoid updating state directly
         let messages = [...this.state.messages];
         messages.push(message);
-        this.setState({messages: messages})
+        this.setState({messages: messages, typingFeedback: ''})
+    }
+
+    setTypingFeedback(input) {
+        if (input.data.length > 0) {
+            this.setState({typingFeedback: `${input.user} is typing...`});
+        } else {
+            this.setState({typingFeedback: ''});
+        }
     }
 
     handleChatSend(message) {
@@ -71,15 +85,23 @@ class ChatWindow extends Component {
         this.addMessage(messagePayload);
     }
 
+    handleChatInput(input) {
+        // send typing data to server
+        this.socket.emit('client:typing', input)
+    }
+
     render() {
-        const {otherUser, messages, showUserAlert} = this.state;
+        const {otherUser, messages, showUserAlert, typingFeedback} = this.state;
         const {username, profilePicture} = this.props;
         const greeting = `Welcome to Chit-Chat, ${username}!`;
+        const alertRef = React.createRef();
+
 
         // Need to use a forward ref to avoid findDomNode deprecation warnings
         const UserAlert = React.forwardRef((props, ref) => (
             <Alert
                 ref={ref}
+                style={{marginBottom: 0}}
                 dismissible={true}
                 variant="info"
                 show={props.showAlert}
@@ -88,8 +110,6 @@ class ChatWindow extends Component {
                 {`${props.otherUser} has joined the chat!`}
             </Alert>
         ));
-
-        const alertRef = React.createRef();
 
         return (
             <div className="chat-window">
@@ -103,13 +123,10 @@ class ChatWindow extends Component {
                         name={username}
                     />
                 </h3>
-                <UserAlert
-                    ref={alertRef}
-                    otherUser={otherUser}
-                    showAlert={showUserAlert}
-                />
+                <UserAlert ref={alertRef} otherUser={otherUser} showAlert={showUserAlert}/>
                 <Messages messages={messages}/>
-                <ChatInput onChatSend={this.handleChatSend}/>
+                <span className="text-feedback">{typingFeedback}</span>
+                <ChatInput onChatSend={this.handleChatSend} onChatInput={this.handleChatInput}/>
             </div>
         );
     }

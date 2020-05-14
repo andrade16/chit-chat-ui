@@ -17,3 +17,9 @@
     border-bottom: 1px solid #ddd;
     background-color: #eee;
 }
+
+.text-feedback {
+    font-size: 12px;
+    color: #6c757d;
+    align-self: center;
+}
