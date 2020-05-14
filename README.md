@@ -36,3 +36,4 @@ Builds the app for production to the `build` folder.
 * The main UI library used is [React Bootstrap](https://react-bootstrap.github.io/).
 * I also used [react-avatar](https://github.com/Sitebase/react-avatar) as a 3rd party UI component
 * [react-icons](https://react-icons.github.io/react-icons/) was used for a basic icon on the login page.
+* I also used this 3rd party [file picker](https://www.npmjs.com/package/bs-custom-file-input).
